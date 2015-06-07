@@ -3,6 +3,8 @@ Open Source Cellular Automata Library in Java.
 
 (The library was originally written in 2010, however I am sharing it now... better late than never).
 
+![](http://atlas.wolfram.com/01/02/1599/01_02_22_1599.gif)
+
 License
 --------
 
