@@ -1,6 +1,8 @@
 # open-ca
 Open Source Cellular Automata Library in Java.
 
+(The library was originally written in 2010, however I am sharing it now... better late than never).
+
 License
 --------
 
