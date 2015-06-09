@@ -1,14 +1,12 @@
 # open-ca
 Open Source Cellular Automata Library in Java.
 
-(The library was originally written in 2010, however I am sharing it now... better late than never).
-
 ![](http://atlas.wolfram.com/01/02/1599/01_02_22_1599.gif)
 
 License
 --------
 
-    Copyright 2015 Juanky Soriano Ltd.
+    Copyright 2010 Juanky Soriano Ltd.
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
