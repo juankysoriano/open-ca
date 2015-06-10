@@ -4,12 +4,12 @@ version '0.1'
 apply plugin: 'java'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.7
 
 sourceSets {
     main {
         java {
-            srcDir 'main/java/src'
+            srcDir 'main/java/'
         }
     }
 }
