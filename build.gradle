@@ -2,6 +2,7 @@ group 'com.juankysoriano'
 version '0.1'
 
 apply plugin: 'java'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.6
 
