@@ -1,6 +1,7 @@
 package com.openca.bi.discrete;
 
 import com.openca.Automata;
+import com.openca.bi.OnCellUpdatedCallback2D;
 
 import java.util.Random;
 
@@ -70,7 +71,20 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
         int[][] cellAux = cellsTemp;
         cellsTemp = cells;
         cells = cellAux;
+    }
 
+    @Override
+    public void evolve(OnCellUpdatedCallback2D onCellUpdatedCallback2D) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                evolveCellAt(i, j);
+                onCellUpdatedCallback2D.onCellDetected(i, j, cellsTemp[i][j]);
+            }
+        }
+
+        int[][] cellAux = cellsTemp;
+        cellsTemp = cells;
+        cells = cellAux;
     }
 
     protected abstract void evolveCellAt(int x, int y);

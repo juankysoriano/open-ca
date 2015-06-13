@@ -12,7 +12,6 @@ public class AutomataOuterTotalistic2D extends AutomataDiscrete2D {
         int cell = cells[x][y];
         int index = computeNeighbourhoodCode(x, y);
         cellsTemp[x][y] = index >= 0 ? lookUpTable[cell][index] : 0;
-
     }
 
     @Override

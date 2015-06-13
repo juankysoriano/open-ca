@@ -1,6 +1,7 @@
 package com.openca.uni.discrete;
 
 import com.openca.Automata;
+import com.openca.uni.OnCellUpdatedCallback1D;
 
 import java.util.Random;
 
@@ -56,6 +57,18 @@ public abstract class AutomataDiscrete1D extends Automata implements CellularAut
     public void evolve() {
         for (int index = 0; index < size; index++) {
             evolveCellAt(index);
+        }
+
+        int[] cellsAux = tempCells;
+        tempCells = cells;
+        cells = cellsAux;
+    }
+
+    @Override
+    public void evolve(OnCellUpdatedCallback1D onCellUpdatedCallback1D) {
+        for (int index = 0; index < size; index++) {
+            evolveCellAt(index);
+            onCellUpdatedCallback1D.onCellDetected(index, tempCells[index]);
         }
 
         int[] cellsAux = tempCells;
