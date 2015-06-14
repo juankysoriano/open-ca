@@ -80,6 +80,7 @@ class CellularAutomataFactory {
         }
 
         automata.setWidth(width);
+        automata.setHeight(height);
         automata.setStates(states);
         automata.setRadius(radius);
         automata.setRule(rule);
@@ -98,6 +99,7 @@ class CellularAutomataFactory {
     private static CellularAutomata createBidimensionalContinousFor(int width, int height, int radius, int states, String rule) {
         Automata automata = new AutomataTotalisticContinous2D();
         automata.setWidth(width);
+        automata.setHeight(height);
         automata.setStates(states);
         automata.setRadius(radius);
         automata.setRule(rule);
