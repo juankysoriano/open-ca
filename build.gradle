@@ -6,6 +6,8 @@ apply plugin: 'maven'
 
 sourceCompatibility = 1.7
 
+compileJava.options.debugOptions.debugLevel = "source,lines,vars"
+
 sourceSets {
     main {
         java {
