@@ -103,9 +103,9 @@ public abstract class Automata implements CellularAutomata {
             return this;
         }
 
-        public CellularAutomata build() throws IllegalArgumentException {
+        public <T extends CellularAutomata> T build() throws IllegalArgumentException {
             checkArguments();
-            return CellularAutomataFactory.createFor(size, radius, states, rule, dimension, domain, type);
+            return (T) CellularAutomataFactory.createFor(size, radius, states, rule, dimension, domain, type);
         }
 
         private void checkArguments() throws IllegalArgumentException {

@@ -14,39 +14,28 @@ import com.openca.uni.discrete.AutomataTotalisticDiscrete1D;
 import static com.openca.Automata.*;
 
 class CellularAutomataFactory {
-    public static CellularAutomata createFor(int size,
-                                             int radius,
-                                             int states,
-                                             String rule,
-                                             Dimension dimension,
-                                             Domain domain,
-                                             Type type) {
-        if (dimension == Dimension.UNIDIMENSIONAL) {
-            return createUnidimensionalFor(size, radius, states, rule, domain, type);
-        } else {
-            return createBidimensionalFor(size, radius, states, rule, domain, type);
-        }
+    public static CellularAutomata createFor(int size, int radius, int states, String rule, Dimension dimension, Domain domain, Type type) {
+
+        return dimension == Dimension.UNIDIMENSIONAL
+                ? createUnidimensionalFor(size, radius, states, rule, domain, type)
+                : createBidimensionalFor(size, radius, states, rule, domain, type);
     }
 
-    private static CellularAutomata createUnidimensionalFor(int size,
-                                                            int radius,
-                                                            int states,
-                                                            String rule,
-                                                            Domain domain,
-                                                            Type type) throws IllegalArgumentException {
-        if (domain == Domain.DISCRETE) {
-            return createUnidimensionalDiscreteFor(size, radius, states, rule, type);
-        } else {
-            return createUnidimensionalContinousFor(size, radius, states, rule);
-        }
+    private static CellularAutomata createUnidimensionalFor(int size, int radius, int states, String rule, Domain domain, Type type) {
+        return domain == Domain.DISCRETE
+                ? createUnidimensionalDiscreteFor(size, radius, states, rule, type)
+                : createUnidimensionalContinousFor(size, radius, states, rule);
     }
 
-    private static Automata createUnidimensionalDiscreteFor(int size,
-                                                            int radius,
-                                                            int states,
-                                                            String rule,
-                                                            Type type) throws IllegalArgumentException {
-        Automata automata = null;
+    private static CellularAutomata createBidimensionalFor(int size, int radius, int states, String rule, Domain domain, Type type) {
+        return domain == Domain.DISCRETE
+                ? createBidimensionalDiscreteFor(size, radius, states, rule, type)
+                : createBidimensionalContinousFor(size, radius, states, rule);
+    }
+
+    private static CellularAutomata createUnidimensionalDiscreteFor(int size, int radius, int states, String rule, Type type) {
+        Automata automata;
+
         switch (type) {
             case CYCLIC:
                 automata = new AutomataCyclicDiscrete1D();
@@ -61,6 +50,7 @@ class CellularAutomataFactory {
                 automata = new AutomataElementaryDiscrete1D();
                 break;
             default:
+                automata = new AutomataElementaryDiscrete1D();
         }
 
         automata.setSize(size);
@@ -70,38 +60,8 @@ class CellularAutomataFactory {
         return automata;
     }
 
-    private static CellularAutomata createUnidimensionalContinousFor(int size,
-                                                                     int radius,
-                                                                     int states,
-                                                                     String rule) throws IllegalArgumentException {
-        Automata automata = new AutomataTotalContinous1D();
-
-        automata.setSize(size);
-        automata.setStates(states);
-        automata.setRadius(radius);
-        automata.setRule(rule);
-        return automata;
-    }
-
-    private static CellularAutomata createBidimensionalFor(int size,
-                                                           int radius,
-                                                           int states,
-                                                           String rule,
-                                                           Domain domain,
-                                                           Type type) {
-        if (domain == Domain.DISCRETE) {
-            return createBidimensionalDiscreteFor(size, radius, states, rule, type);
-        } else {
-            return createBidimensionalContinousFor(size, radius, states, rule);
-        }
-    }
-
-    private static Automata createBidimensionalDiscreteFor(int size,
-                                                           int radius,
-                                                           int states,
-                                                           String rule,
-                                                           Type type) throws IllegalArgumentException {
-        Automata automata = null;
+    private static CellularAutomata createBidimensionalDiscreteFor(int size, int radius, int states, String rule, Type type) {
+        Automata automata;
         switch (type) {
             case CYCLIC:
                 automata = new AutomataCyclic2D();
@@ -116,6 +76,7 @@ class CellularAutomataFactory {
                 automata = new AutomataElementary2D();
                 break;
             default:
+                automata = new AutomataElementary2D();
         }
 
         automata.setSize(size);
@@ -125,12 +86,17 @@ class CellularAutomataFactory {
         return automata;
     }
 
-    private static CellularAutomata createBidimensionalContinousFor(int size,
-                                                                    int radius,
-                                                                    int states,
-                                                                    String rule) throws IllegalArgumentException {
-        Automata automata = new AutomataTotalisticContinous2DMoore();
+    private static CellularAutomata createUnidimensionalContinousFor(int size, int radius, int states, String rule) {
+        Automata automata = new AutomataTotalContinous1D();
+        automata.setSize(size);
+        automata.setStates(states);
+        automata.setRadius(radius);
+        automata.setRule(rule);
+        return automata;
+    }
 
+    private static CellularAutomata createBidimensionalContinousFor(int size, int radius, int states, String rule) {
+        Automata automata = new AutomataTotalisticContinous2DMoore();
         automata.setSize(size);
         automata.setStates(states);
         automata.setRadius(radius);
