@@ -59,15 +59,15 @@ public class AutomataTotalContinous1D extends AutomataContinous1D {
         double code = 0;
         if (index == 0) {
             for (int i = -radius; i <= radius; i++) {
-                newX = getWrappedIndex(i);
+                newX = getWrappedIndex(i, height);
                 code += cells[newX];
                 code = DecimalRounder.round(code);
 
             }
         } else {
-            newX = getWrappedIndex(index - radius - 1);
+            newX = getWrappedIndex(index - radius - 1, width);
             double bRes = cells[newX];
-            newX = getWrappedIndex(index + radius);
+            newX = getWrappedIndex(index + radius, width);
             double bSum = cells[newX];
             code = DecimalRounder.round(neighbourCode[index - 1] - DecimalRounder.round(bRes) + DecimalRounder.round(bSum));
         }

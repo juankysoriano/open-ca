@@ -1,6 +1,7 @@
 package com.openca.bi.discrete;
 
 import com.openca.Automata;
+import com.openca.OnCellUpdatedCallback;
 import com.openca.bi.OnCellUpdatedCallback2D;
 
 import java.util.Random;
@@ -26,19 +27,19 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
         Random rand = new Random();
         int density = rand.nextInt(101);
 
-        for (int i = 0; i < size / 2; i++) {
-            for (int j = 0; j < size / 2; j++) {
+        for (int i = 0; i < width / 2; i++) {
+            for (int j = 0; j < height / 2; j++) {
                 cells[i][j] = 0;
-                cells[i][size - 1 - j] = 0;
-                cells[size - 1 - i][j] = 0;
-                cells[size - 1 - i][size - 1 - j] = 0;
+                cells[i][width - 1 - j] = 0;
+                cells[width - 1 - i][j] = 0;
+                cells[width - 1 - i][width - 1 - j] = 0;
                 int value = rand.nextInt(101);
                 if (value < density) {
                     byte state = (byte) rand.nextInt(states);
                     cells[i][j] = state;
-                    cells[i][size - 1 - j] = state;
-                    cells[size - 1 - i][j] = state;
-                    cells[size - 1 - i][size - 1 - j] = state;
+                    cells[i][width - 1 - j] = state;
+                    cells[width - 1 - i][j] = state;
+                    cells[width - 1 - i][width - 1 - j] = state;
                 }
             }
 
@@ -48,8 +49,8 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
     private void prepareSymmetricConfiguration() {
         Random rand = new Random();
         int density = rand.nextInt(101);
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 cells[i][j] = 0;
                 int value = rand.nextInt(101);
                 if (value < density) {
@@ -62,8 +63,8 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
 
     @Override
     public void evolve() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 evolveCellAt(i, j);
             }
         }
@@ -74,11 +75,11 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
     }
 
     @Override
-    public void evolve(OnCellUpdatedCallback2D onCellUpdatedCallback2D) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+    public void evolve(OnCellUpdatedCallback onCellUpdatedCallback2D) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 evolveCellAt(i, j);
-                onCellUpdatedCallback2D.onCellDetected(i, j, cellsTemp[i][j]);
+                ((OnCellUpdatedCallback2D)onCellUpdatedCallback2D).onCellDetected(i, j, cellsTemp[i][j]);
             }
         }
 
@@ -96,13 +97,13 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
 
     @Override
     public void clear() {
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells.length; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 cells[i][j] = 0;
             }
         }
 
-        int half = (int) Math.floor(getSize() / 2);
+        int half = (int) Math.floor(getWidth() / 2);
 
         getCells()[half][half] = 1;
         getCells()[half - 1][half - 1] = 1;
@@ -116,12 +117,22 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
     }
 
     @Override
-    public void setSize(int size) {
-        if (this.size != size) {
-            this.size = size;
-            cells = new int[size][size];
-            cellsTemp = new int[size][size];
-            neighbourhoodCode = new int[size][size];
+    public void setWidth(int width) {
+        if (this.width != width) {
+            this.width = width;
+            cells = new int[width][height];
+            cellsTemp = new int[width][height];
+            neighbourhoodCode = new int[width][height];
+        }
+    }
+
+    @Override
+    public void setHeight(int height) {
+        if (this.height != height) {
+            this.height = height;
+            cells = new int[width][height];
+            cellsTemp = new int[width][height];
+            neighbourhoodCode = new int[width][height];
         }
     }
 }

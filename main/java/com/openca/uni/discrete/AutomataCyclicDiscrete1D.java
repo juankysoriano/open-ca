@@ -13,7 +13,7 @@ public class AutomataCyclicDiscrete1D extends AutomataDiscrete1D {
         int state = cells[index];
         if (state < states - 1) {
             for (int i = index - radius; (count < threshold) && (i <= index + radius); i++) {
-                if (cells[getWrappedIndex(i)] == (cell + 1)) {
+                if (cells[getWrappedIndex(i, width)] == (cell + 1)) {
                     count++;
                 }
             }
@@ -23,7 +23,7 @@ public class AutomataCyclicDiscrete1D extends AutomataDiscrete1D {
         } else if (state == states - 1) {
             for (int i = index - radius; (count < threshold) && (i <= index + radius); i++) {
 
-                if (cells[getWrappedIndex(i)] == 0) {
+                if (cells[getWrappedIndex(i, width)] == 0) {
                     count++;
                 }
 

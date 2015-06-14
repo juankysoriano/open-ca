@@ -17,15 +17,15 @@ public class AutomataTotalisticDiscrete1D extends AutomataDiscrete1D {
 
         if (index == 0) {
             for (int i = -radius; i < implied; i++) {
-                newX = getWrappedIndex(i);
+                newX = getWrappedIndex(i, width);
                 code += (cells[newX]);
             }
         } else {
             int bRes = 0;
             int bSum = 0;
-            newX = getWrappedIndex(index - radius - 1);
+            newX = getWrappedIndex(index - radius - 1, width);
             bRes += (cells[newX]);
-            newX = getWrappedIndex(index + radius);
+            newX = getWrappedIndex(index + radius, width);
             bSum += (cells[newX]);
             code = (neighbourhoodCode[index - 1] - bRes + bSum);
         }

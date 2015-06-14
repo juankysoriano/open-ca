@@ -3,7 +3,8 @@ package com.openca;
 public abstract class Automata implements CellularAutomata {
     protected int states;
     protected int radius;
-    protected int size;
+    protected int width;
+    protected int height;
     protected int numberOfNeighbours;
     protected int[] ruleLookupTable;
 
@@ -18,11 +19,16 @@ public abstract class Automata implements CellularAutomata {
     }
 
     @Override
-    public int getSize() {
-        return size;
+    public int getWidth() {
+        return width;
     }
 
-    protected int getWrappedIndex(int index) {
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    protected int getWrappedIndex(int index, int size) {
         return index < 0 ? index + size : index >= size ? index - size : index;
     }
 
@@ -37,8 +43,12 @@ public abstract class Automata implements CellularAutomata {
 
     protected abstract void setRule(String rule) throws IllegalArgumentException;
 
-    protected void setSize(int size) {
-        this.size = size;
+    protected void setWidth(int width) {
+        this.width = width;
+    }
+
+    protected void setHeight(int height) {
+        this.height = height;
     }
 
     public enum Dimension {
@@ -60,16 +70,22 @@ public abstract class Automata implements CellularAutomata {
 
     public static class Builder {
         private static final int NOT_SETTED = -1;
-        private int size = NOT_SETTED;
         private int radius = NOT_SETTED;
         private int states = NOT_SETTED;
+        private int width = NOT_SETTED;
+        private int height = NOT_SETTED;
         private String rule;
         private Dimension dimension;
         private Domain domain;
         private Type type;
 
-        public Builder size(int size) {
-            this.size = size;
+        public Builder width(int width) {
+            this.width = width;
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = height;
             return this;
         }
 
@@ -105,12 +121,15 @@ public abstract class Automata implements CellularAutomata {
 
         public <T extends CellularAutomata> T build() throws IllegalArgumentException {
             checkArguments();
-            return (T) CellularAutomataFactory.createFor(size, radius, states, rule, dimension, domain, type);
+            return (T) CellularAutomataFactory.createFor(width, height, radius, states, rule, dimension, domain, type);
         }
 
         private void checkArguments() throws IllegalArgumentException {
-            if (size == NOT_SETTED) {
-                throw new IllegalArgumentException("No size has been specified for this automata");
+            if (width == NOT_SETTED) {
+                throw new IllegalArgumentException("No width has been specified for this automata");
+            }
+            if (height == NOT_SETTED && dimension == Dimension.BIDIMENSIONAL) {
+                throw new IllegalArgumentException("No height has been specified for this automata");
             }
             if (radius == NOT_SETTED) {
                 throw new IllegalArgumentException("No radius has been specified for this automata");

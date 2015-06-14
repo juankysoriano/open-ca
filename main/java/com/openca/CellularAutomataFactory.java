@@ -1,6 +1,6 @@
 package com.openca;
 
-import com.openca.bi.continous.AutomataTotalisticContinous2DMoore;
+import com.openca.bi.continous.AutomataTotalisticContinous2D;
 import com.openca.bi.discrete.AutomataCyclic2D;
 import com.openca.bi.discrete.AutomataElementary2D;
 import com.openca.bi.discrete.AutomataOuterTotalistic2D;
@@ -14,23 +14,23 @@ import com.openca.uni.discrete.AutomataTotalisticDiscrete1D;
 import static com.openca.Automata.*;
 
 class CellularAutomataFactory {
-    public static CellularAutomata createFor(int size, int radius, int states, String rule, Dimension dimension, Domain domain, Type type) {
+    public static CellularAutomata createFor(int width, int height, int radius, int states, String rule, Dimension dimension, Domain domain, Type type) {
 
         return dimension == Dimension.UNIDIMENSIONAL
-                ? createUnidimensionalFor(size, radius, states, rule, domain, type)
-                : createBidimensionalFor(size, radius, states, rule, domain, type);
+                ? createUnidimensionalFor(width, radius, states, rule, domain, type)
+                : createBidimensionalFor(width, height, radius, states, rule, domain, type);
     }
 
-    private static CellularAutomata createUnidimensionalFor(int size, int radius, int states, String rule, Domain domain, Type type) {
+    private static CellularAutomata createUnidimensionalFor(int width, int radius, int states, String rule, Domain domain, Type type) {
         return domain == Domain.DISCRETE
-                ? createUnidimensionalDiscreteFor(size, radius, states, rule, type)
-                : createUnidimensionalContinousFor(size, radius, states, rule);
+                ? createUnidimensionalDiscreteFor(width, radius, states, rule, type)
+                : createUnidimensionalContinousFor(width, radius, states, rule);
     }
 
-    private static CellularAutomata createBidimensionalFor(int size, int radius, int states, String rule, Domain domain, Type type) {
+    private static CellularAutomata createBidimensionalFor(int width, int height, int radius, int states, String rule, Domain domain, Type type) {
         return domain == Domain.DISCRETE
-                ? createBidimensionalDiscreteFor(size, radius, states, rule, type)
-                : createBidimensionalContinousFor(size, radius, states, rule);
+                ? createBidimensionalDiscreteFor(width, height, radius, states, rule, type)
+                : createBidimensionalContinousFor(width, height, radius, states, rule);
     }
 
     private static CellularAutomata createUnidimensionalDiscreteFor(int size, int radius, int states, String rule, Type type) {
@@ -53,14 +53,14 @@ class CellularAutomataFactory {
                 automata = new AutomataElementaryDiscrete1D();
         }
 
-        automata.setSize(size);
+        automata.setWidth(size);
         automata.setStates(states);
         automata.setRadius(radius);
         automata.setRule(rule);
         return automata;
     }
 
-    private static CellularAutomata createBidimensionalDiscreteFor(int size, int radius, int states, String rule, Type type) {
+    private static CellularAutomata createBidimensionalDiscreteFor(int width, int height, int radius, int states, String rule, Type type) {
         Automata automata;
         switch (type) {
             case CYCLIC:
@@ -79,25 +79,25 @@ class CellularAutomataFactory {
                 automata = new AutomataElementary2D();
         }
 
-        automata.setSize(size);
+        automata.setWidth(width);
         automata.setStates(states);
         automata.setRadius(radius);
         automata.setRule(rule);
         return automata;
     }
 
-    private static CellularAutomata createUnidimensionalContinousFor(int size, int radius, int states, String rule) {
+    private static CellularAutomata createUnidimensionalContinousFor(int width, int radius, int states, String rule) {
         Automata automata = new AutomataTotalContinous1D();
-        automata.setSize(size);
+        automata.setWidth(width);
         automata.setStates(states);
         automata.setRadius(radius);
         automata.setRule(rule);
         return automata;
     }
 
-    private static CellularAutomata createBidimensionalContinousFor(int size, int radius, int states, String rule) {
-        Automata automata = new AutomataTotalisticContinous2DMoore();
-        automata.setSize(size);
+    private static CellularAutomata createBidimensionalContinousFor(int width, int height, int radius, int states, String rule) {
+        Automata automata = new AutomataTotalisticContinous2D();
+        automata.setWidth(width);
         automata.setStates(states);
         automata.setRadius(radius);
         automata.setRule(rule);

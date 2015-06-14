@@ -21,14 +21,14 @@ public class AutomataElementaryDiscrete1D extends AutomataDiscrete1D {
         int code = 0;
         if (index == 0) {
             for (int i = -radius; i <= radius; i++) {
-                newX = getWrappedIndex(i);
+                newX = getWrappedIndex(i, width);
                 code += exponential * (cells[newX]);
                 exponential /= states;
             }
         } else {
-            newX = getWrappedIndex(index - radius - 1);
+            newX = getWrappedIndex(index - radius - 1, width);
             int bRes = scaleFactor * (cells[newX]);
-            newX = getWrappedIndex(index + radius);
+            newX = getWrappedIndex(index + radius, width);
             int bSum = (cells[newX]);
             code = (neighbourhoodCode[index - 1] - bRes) * states + bSum;
         }

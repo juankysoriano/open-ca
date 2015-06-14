@@ -1,5 +1,7 @@
 package com.openca.bi.discrete;
 
+import com.openca.OnCellUpdatedCallback;
+
 import java.math.BigInteger;
 
 public class AutomataElementary2D extends AutomataDiscrete2D {
@@ -47,10 +49,10 @@ public class AutomataElementary2D extends AutomataDiscrete2D {
         int secondExp = secondFactor;
 
         if (y != 0) {
-            newY = getWrappedIndex(y - radius - 1);
-            newYAux = getWrappedIndex(y + radius);
+            newY = getWrappedIndex(y - radius - 1, height);
+            newYAux = getWrappedIndex(y + radius, height);
             for (int i = -radius; i <= radius; i++) {
-                newX = getWrappedIndex(x + i);
+                newX = getWrappedIndex(x + i, width);
                 bRes += exp * (cells[newX][newY]);
                 exp *= factor;
                 bSum += secondExp * (cells[newX][newYAux]);
@@ -58,11 +60,11 @@ public class AutomataElementary2D extends AutomataDiscrete2D {
             }
             code = (neighbourhoodCode[x][y - 1] - bRes) / 2 + bSum;
         } else if (x != 0) {
-            newX = getWrappedIndex(x - radius - 1);
-            newXAux = getWrappedIndex(x + radius);
+            newX = getWrappedIndex(x - radius - 1, width);
+            newXAux = getWrappedIndex(x + radius, width);
 
             for (int i = -radius; i <= radius; i++) {
-                newY = getWrappedIndex(i);
+                newY = getWrappedIndex(i, height);
                 bRes += exp * (cells[newX][newY]);
                 bSum += exp * (cells[newXAux][newY]);
                 exp *= states;
@@ -70,9 +72,9 @@ public class AutomataElementary2D extends AutomataDiscrete2D {
             code = (neighbourhoodCode[x - 1][y] - bRes) / factor + bSum * thirdFactor;
         } else {
             for (int i = -radius; i <= radius; i++) {
-                newX = getWrappedIndex(i);
+                newX = getWrappedIndex(i, width);
                 for (int j = -radius; j <= radius; j++) {
-                    newY = getWrappedIndex(j);
+                    newY = getWrappedIndex(j, height);
                     code += exp * (cells[newX][newY]);
                     exp *= states;
                 }
@@ -82,5 +84,4 @@ public class AutomataElementary2D extends AutomataDiscrete2D {
         neighbourhoodCode[x][y] = code;
         return code;
     }
-
 }

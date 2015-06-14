@@ -29,11 +29,11 @@ public class AutomataCyclic2D extends AutomataDiscrete2D {
         for (int i = x - radius; i <= limitX; i++) {
             for (int j = y - radius; (count <= threshold) && (j <= limitY); j++) {
                 if (state != states - 1) {
-                    if (cells[getWrappedIndex(i)][getWrappedIndex(j)] == (cells[x][y] + 1)) {
+                    if (cells[getWrappedIndex(i, width)][getWrappedIndex(j, height)] == (cells[x][y] + 1)) {
                         count++;
                     }
                 } else {
-                    if (cells[getWrappedIndex(i)][getWrappedIndex(j)] == 0) {
+                    if (cells[getWrappedIndex(i, width)][getWrappedIndex(j, height)] == 0) {
                         count++;
                     }
                 }

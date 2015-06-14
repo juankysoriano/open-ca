@@ -29,28 +29,28 @@ public class AutomataTotalistic2D extends AutomataDiscrete2D {
         int code;
 
         if (y != 0) {
-            newYAux = getWrappedIndex(y - radius - 1);
-            newY = getWrappedIndex(y + radius);
+            newYAux = getWrappedIndex(y - radius - 1, height);
+            newY = getWrappedIndex(y + radius, height);
             code = neighbourhoodCode[x][y - 1];
             for (int i = -radius; i <= radius; i++) {
-                newX = getWrappedIndex(x + i);
+                newX = getWrappedIndex(x + i, width);
                 code += (cells[newX][newY]) - (cells[newX][newYAux]);
             }
         } else if (x != 0) {
-            newXAux = getWrappedIndex(x - radius - 1);
-            newX = getWrappedIndex(x + radius);
+            newXAux = getWrappedIndex(x - radius - 1, width);
+            newX = getWrappedIndex(x + radius, width);
             code = neighbourhoodCode[x - 1][y];
             for (int i = -radius; i <= radius; i++) {
-                newY = getWrappedIndex(i);
+                newY = getWrappedIndex(i, height);
                 code += (cells[newX][newY]) - (cells[newXAux][newY]);
             }
 
         } else {
             code = 0;
             for (int i = -radius; i <= radius; i++) {
-                newY = getWrappedIndex(i);
+                newY = getWrappedIndex(i, height);
                 for (int j = -radius; j <= radius; j++) {
-                    newX = getWrappedIndex(j);
+                    newX = getWrappedIndex(j, width);
                     code += cells[newX][newY];
                 }
             }

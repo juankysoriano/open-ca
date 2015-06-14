@@ -1,5 +1,7 @@
 package com.openca.uni;
 
-public interface OnCellUpdatedCallback1D {
+import com.openca.OnCellUpdatedCallback;
+
+public interface OnCellUpdatedCallback1D extends OnCellUpdatedCallback {
     void onCellDetected(int x, int cellValue);
 }
