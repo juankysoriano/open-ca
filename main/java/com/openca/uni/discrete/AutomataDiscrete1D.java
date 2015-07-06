@@ -28,7 +28,7 @@ public abstract class AutomataDiscrete1D extends Automata implements CellularAut
 
     private void prepareRandomConfiguration() {
         Random random = new Random();
-        int density = random.nextInt(101);
+        int density = 30;
         for (int i = 0; i < width; i++) {
             cells[i] = 0;
             int value = random.nextInt(101);
@@ -41,7 +41,7 @@ public abstract class AutomataDiscrete1D extends Automata implements CellularAut
 
     private void prepareSymmetricConfiguration() {
         Random random = new Random();
-        int density = random.nextInt(101);
+        int density = 30;
         for (int i = 0; i < width / 2; i++) {
             cells[i] = 0;
             cells[width - 1 - i] = 0;
