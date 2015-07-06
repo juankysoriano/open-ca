@@ -25,6 +25,20 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
     private void prepareRandomConfiguration() {
         Random rand = new Random();
         int density = rand.nextInt(101);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                cells[i][j] = 0;
+                int value = rand.nextInt(101);
+                if (value < density) {
+                    cells[i][j] = rand.nextInt(states);
+                }
+            }
+        }
+    }
+
+    private void prepareSymmetricConfiguration() {
+        Random rand = new Random();
+        int density = rand.nextInt(101);
 
         for (int i = 0; i < width / 2; i++) {
             for (int j = 0; j < height / 2; j++) {
@@ -41,22 +55,6 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
                     cells[width - 1 - i][height - 1 - j] = state;
                 }
             }
-
-        }
-    }
-
-    private void prepareSymmetricConfiguration() {
-        Random rand = new Random();
-        int density = rand.nextInt(101);
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                cells[i][j] = 0;
-                int value = rand.nextInt(101);
-                if (value < density) {
-                    cells[i][j] = rand.nextInt(states);
-                }
-            }
-
         }
     }
 

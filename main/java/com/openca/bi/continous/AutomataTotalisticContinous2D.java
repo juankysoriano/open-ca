@@ -35,6 +35,20 @@ public class AutomataTotalisticContinous2D extends AutomataContinous2D {
     private void prepareRandomConfiguration() {
         Random rand = new Random();
         int density = rand.nextInt(101);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = 0;
+                int value = rand.nextInt(101);
+                if (value < density) {
+                    cells[i][j] = rand.nextInt(states);
+                }
+            }
+        }
+    }
+
+    private void prepareSymmetricConfiguration() {
+        Random rand = new Random();
+        int density = rand.nextInt(101);
 
         for (int i = 0; i < width / 2; i++) {
             for (int j = 0; j < width / 2; j++) {
@@ -51,22 +65,6 @@ public class AutomataTotalisticContinous2D extends AutomataContinous2D {
                     cells[width - 1 - i][width - 1 - j] = state;
                 }
             }
-
-        }
-    }
-
-    private void prepareSymmetricConfiguration() {
-        Random rand = new Random();
-        int density = rand.nextInt(101);
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++) {
-                cells[i][j] = 0;
-                int value = rand.nextInt(101);
-                if (value < density) {
-                    cells[i][j] = rand.nextInt(states);
-                }
-            }
-
         }
     }
 

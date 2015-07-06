@@ -66,6 +66,19 @@ public abstract class AutomataContinous1D extends Automata implements CellularAu
     private void prepareRandomConfiguration() {
         Random random = new Random();
         int density = random.nextInt(101);
+        for (int i = 0; i < width; i++) {
+            cells[i] = 0;
+            int value = random.nextInt(101);
+            if (value < density) {
+                byte state = (byte) random.nextInt(states);
+                cells[i] = state;
+            }
+        }
+    }
+
+    private void prepareSymmetricConfiguration() {
+        Random random = new Random();
+        int density = random.nextInt(101);
         for (int i = 0; i < width / 2; i++) {
             cells[i] = 0;
             cells[width - 1 - i] = 0;
@@ -74,19 +87,6 @@ public abstract class AutomataContinous1D extends Automata implements CellularAu
                 byte state = (byte) random.nextInt(states);
                 cells[i] = state;
                 cells[width - 1 - i] = state;
-            }
-        }
-    }
-
-    private void prepareSymmetricConfiguration() {
-        Random random = new Random();
-        int density = random.nextInt(101);
-        for (int i = 0; i < width; i++) {
-            cells[i] = 0;
-            int value = random.nextInt(101);
-            if (value < density) {
-                byte state = (byte) random.nextInt(states);
-                cells[i] = state;
             }
         }
     }
