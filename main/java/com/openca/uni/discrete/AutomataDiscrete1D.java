@@ -17,7 +17,7 @@ public abstract class AutomataDiscrete1D extends Automata implements CellularAut
 
     @Override
     public void randomiseConfiguration() {
-        boolean hasToBeSymmetric = new Random().nextInt(2) == 0;
+        boolean hasToBeSymmetric = new Random().nextInt(100) > 90;
 
         if (hasToBeSymmetric) {
             prepareSymmetricConfiguration();

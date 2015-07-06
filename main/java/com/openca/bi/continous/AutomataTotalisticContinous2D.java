@@ -23,8 +23,7 @@ public class AutomataTotalisticContinous2D extends AutomataContinous2D {
 
     @Override
     public void randomiseConfiguration() {
-        Random rand = new Random();
-        boolean hasToBeSymmetric = rand.nextInt(2) == 0;
+        boolean hasToBeSymmetric = new Random().nextInt(100) > 90;
 
         if (hasToBeSymmetric) {
             prepareSymmetricConfiguration();
@@ -143,17 +142,5 @@ public class AutomataTotalisticContinous2D extends AutomataContinous2D {
                 cells[i][j] = 0;
             }
         }
-
-        int half = (int) Math.floor(getWidth() / 2);
-
-        getCells()[half][half] = 1;
-        getCells()[half - 1][half - 1] = 1;
-        getCells()[half - 1][half] = 1;
-        getCells()[half][half - 1] = 1;
-        getCells()[half + 1][half] = 1;
-        getCells()[half + 1][half + 1] = 1;
-        getCells()[half + 1][half - 1] = 1;
-        getCells()[half - 1][half + 1] = 1;
-        getCells()[half][half + 1] = 1;
     }
 }

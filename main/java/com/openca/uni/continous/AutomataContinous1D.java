@@ -54,7 +54,7 @@ public abstract class AutomataContinous1D extends Automata implements CellularAu
 
     @Override
     public void randomiseConfiguration() {
-        boolean hasToBeSymmetric = new Random().nextInt(2) == 0;
+        boolean hasToBeSymmetric = new Random().nextInt(100) > 90;
 
         if (hasToBeSymmetric) {
             prepareSymmetricConfiguration();

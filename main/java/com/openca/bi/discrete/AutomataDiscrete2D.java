@@ -13,8 +13,7 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
 
     @Override
     public void randomiseConfiguration() {
-        Random rand = new Random();
-        boolean hasToBeSymmetric = rand.nextInt(2) == 0;
+        boolean hasToBeSymmetric = new Random().nextInt(100) > 90;
 
         if (hasToBeSymmetric) {
             prepareSymmetricConfiguration();
@@ -30,16 +29,16 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
         for (int i = 0; i < width / 2; i++) {
             for (int j = 0; j < height / 2; j++) {
                 cells[i][j] = 0;
-                cells[i][width - 1 - j] = 0;
+                cells[i][height - 1 - j] = 0;
                 cells[width - 1 - i][j] = 0;
-                cells[width - 1 - i][width - 1 - j] = 0;
+                cells[width - 1 - i][height - 1 - j] = 0;
                 int value = rand.nextInt(101);
                 if (value < density) {
                     byte state = (byte) rand.nextInt(states);
                     cells[i][j] = state;
-                    cells[i][width - 1 - j] = state;
+                    cells[i][height - 1 - j] = state;
                     cells[width - 1 - i][j] = state;
-                    cells[width - 1 - i][width - 1 - j] = state;
+                    cells[width - 1 - i][height - 1 - j] = state;
                 }
             }
 
@@ -102,18 +101,6 @@ public abstract class AutomataDiscrete2D extends Automata implements CellularAut
                 cells[i][j] = 0;
             }
         }
-
-        int half = (int) Math.floor(getWidth() / 2);
-
-        getCells()[half][half] = 1;
-        getCells()[half - 1][half - 1] = 1;
-        getCells()[half - 1][half] = 1;
-        getCells()[half][half - 1] = 1;
-        getCells()[half + 1][half] = 1;
-        getCells()[half + 1][half + 1] = 1;
-        getCells()[half + 1][half - 1] = 1;
-        getCells()[half - 1][half + 1] = 1;
-        getCells()[half][half + 1] = 1;
     }
 
     @Override
